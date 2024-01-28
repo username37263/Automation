@@ -1,0 +1,9 @@
+---
+- name: Run commands as root
+  hosts: "*"
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Execute commands from file
+      script: commands_script.sh

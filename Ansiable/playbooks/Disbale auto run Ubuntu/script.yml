@@ -1,0 +1,17 @@
+---
+- name: Configure APT auto-upgrades
+  hosts: "*"
+  become: yes
+  environment:
+    ANSIBLE_SSH_ARGS: "-o StrictHostKeyChecking=no"
+  tasks:
+    - name: Remove content from /etc/apt/apt.conf.d/20auto-upgrades
+      replace:
+        path: /etc/apt/apt.conf.d/20auto-upgrades
+        regexp: '.*'
+        replace: ''
+
+    - name: Add custom APT auto-upgrade configuration
+      template:
+        src: custom_apt_config.j2
+        dest: /etc/apt/apt.conf.d/20auto-upgrades
